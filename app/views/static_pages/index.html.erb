@@ -2,7 +2,7 @@
     <header class="header">
         <h1>todos</h1>
         <form id="new-form">
-            <input type="text" class="new-todos" />
+            <input type="text" class="new-todo" />
         </form>
     </header>
 
@@ -17,8 +17,15 @@
     $(function() {
         $('#new-form').submit(function(event) {
             event.preventDefault();
-            var textbook = $('.new-todo');
-            console.log("Task: ", textbox.val());
+            var textbox = $('.new-todo');
+            var payload = {
+                task: {
+                    title: textbox.val()
+                }
+            };
+            $.post("/tasks", payload).success(function(data) {
+                console.log("Successful HTTP Request");
+            });
         });
 
 
@@ -33,7 +40,7 @@
                 task.title +
                 '</label></div></li>';
 
-            return liElement
+            return liElement;
         }
 
 
